@@ -25,7 +25,9 @@ def create():
   else:
     return render_template(
       'new.html', 
-      errors=user.errors
+      errors=user.errors,
+      username=user.username,
+      email=user.email
     )
 
 @users_blueprint.route('/<username>', methods=["GET"])
