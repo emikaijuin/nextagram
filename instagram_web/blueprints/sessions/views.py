@@ -4,6 +4,7 @@ from flask import(
 )
 from werkzeug.security import check_password_hash
 from models.user import *
+from flask_login import login_user
 
 sessions_blueprint = Blueprint('sessions',
                             __name__,
@@ -18,7 +19,7 @@ def new():
 def create():
   user = User.get(email= request.form['email'])
   if check_password_hash(user.password_digest, request.form['password']):
-    session["user_id"] = user.id
+    login_user(user)
     flash(f"Welcome, {user.username}")
     return redirect(url_for('home'))
   else:
