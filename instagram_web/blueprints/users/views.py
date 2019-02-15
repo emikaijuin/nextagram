@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash
 from models.user import *
 
@@ -21,6 +21,7 @@ def create():
   )
 
   if user.save():
+    session['user_id'] = user.id
     return redirect(url_for('users.show', username=user.username))
   else:
     return render_template(
@@ -32,7 +33,7 @@ def create():
 
 @users_blueprint.route('/<username>', methods=["GET"])
 def show(username):
-    pass
+    return f"{username}'s profile"
 
 
 @users_blueprint.route('/', methods=["GET"])
