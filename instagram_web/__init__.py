@@ -15,6 +15,13 @@ app.register_blueprint(sessions_blueprint, url_prefix="/sessions")
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html'), 400
+
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template('403.html'), 403
 
 @app.route("/")
 def home():
