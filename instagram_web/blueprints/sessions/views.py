@@ -4,7 +4,7 @@ from flask import(
 )
 from werkzeug.security import check_password_hash
 from models.user import *
-from flask_login import login_user
+from flask_login import login_user, current_user, logout_user
 
 sessions_blueprint = Blueprint('sessions',
                             __name__,
@@ -31,6 +31,7 @@ def create():
 
 @sessions_blueprint.route('/destroy', methods=["POST"])
 def destroy():
-  session.clear()
+  user = User.get_by_id(User.get_id(current_user))
+  logout_user()
   flash(f"You signed out.")
   return redirect(url_for('home'))
