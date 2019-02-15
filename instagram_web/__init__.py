@@ -19,7 +19,7 @@ def internal_server_error(e):
 def not_found(e):
     return render_template('404.html'), 400
 
-@app.errorhandler(403)
+@app.errorhandler(401)
 def forbidden(e):
     return render_template('403.html'), 403
 
