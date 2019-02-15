@@ -11,9 +11,9 @@ class User(BaseModel):
         duplicate_email = User.get_or_none(User.email == self.email)
         duplicate_username = User.get_or_none(User.username == self.username)
 
-        if duplicate_email:
+        if duplicate_email and not duplicate_email.id == self.id:
             self.errors.append("Email is already taken, please login with existing email.")
-        if duplicate_username:
+        if duplicate_username and not duplicate_username.id == self.id:
             self.errors.append("Username is already taken, please try creating another.")
 
     def is_authenticated(self):
