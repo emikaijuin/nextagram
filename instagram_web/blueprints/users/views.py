@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash
 from models.user import *
 from flask_login import current_user, login_required
@@ -22,11 +22,10 @@ def create():
   )
 
   if user.save():
-    image_upload = user.upload_file(request)
-    if True in image_upload: 
-      user.avatar = image_upload[1]
-      user.save()
+    if False in user.upload_file(request):
+      flash("There was an issue uploading your profile picture, please try again.")
     session['user_id'] = user.id
+    flash("Welcome to NEXTagram!")
     return redirect(url_for('users.show', username=user.username))
   else:
     return render_template(
