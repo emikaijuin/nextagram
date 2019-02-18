@@ -41,6 +41,8 @@ class User(BaseModel):
       if file:
         file.filename = secure_filename(file.filename)
         output = upload_file_to_s3(file, S3_BUCKET)
+        self.avatar = output
+        self.save()
         return [True, str(output)]
 
       else:
