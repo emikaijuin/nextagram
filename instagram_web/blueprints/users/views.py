@@ -53,7 +53,7 @@ def edit(id):
             id = id
         )
     else:
-        return redirect(url_for('forbidden'))
+        return "You can't go there"
 
 
 @users_blueprint.route('/<id>', methods=['POST'])
