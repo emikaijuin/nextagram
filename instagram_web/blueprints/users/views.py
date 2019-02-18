@@ -20,8 +20,12 @@ def create():
     username = request.form['username'],
     password_digest = generate_password_hash(request.form['password'])
   )
-  user.upload_file(request)
+
   if user.save():
+    image_upload = user.upload_file(request)
+    if True in image_upload: 
+      user.avatar = image_upload[1]
+      user.save()
     session['user_id'] = user.id
     return redirect(url_for('users.show', username=user.username))
   else:
