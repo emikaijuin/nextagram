@@ -31,6 +31,7 @@ class TestingConfig(Config):
     ASSETS_DEBUG = True
 
 # Declare Amazon Accesses
-AMAZON_ACCESS_KEY = os.environ.get("AMAZON_ACCESS_KEY")
-AMAZON_SECRET_KEY = os.environ.get("AMAZON_SECRET_KEY")
-print(AMAZON_ACCESS_KEY)
+S3_ACCESS = os.environ.get("S3_ACCESS_KEY")
+S3_SECRET = os.environ.get("S3_SECRET_KEY")
+S3_BUCKET = os.environ.get("S3_BUCKET_NAME")
+S3_LOCATION = os.environ.get("S3_LOCATION")
