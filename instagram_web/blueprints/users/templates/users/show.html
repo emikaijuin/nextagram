@@ -1,5 +1,23 @@
 {% extends "_layout.html" %}
 {% block content %}
-  <h2>{{ username }}</h2>
-  <img src="{{profile_image_url}}" alt="user-profile-picture">
+<div class="container">
+
+  <div class="container" id="about">
+    <h2>{{ username }}</h2>
+    <img 
+      src="{{profile_image_url}}" 
+      alt="user-profile-picture"
+      class="rounded-circle"
+      style="width:80px; height:80px"
+    >
+  </div>
+  <div class="container">
+    {% for image in user_images %}
+      <img 
+        src="{{image.remote_url}}" 
+        alt="img"
+        class="w-25">
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
