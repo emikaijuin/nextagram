@@ -34,6 +34,6 @@ class Image(BaseModel):
   @hybrid_property
   def remote_url(self):
     if self.url:
-      return S3_LOCATION + self.url
+      return s3_url(self.url)
     else:
       return ""
