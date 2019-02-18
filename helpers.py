@@ -1,5 +1,5 @@
 import boto3, botocore
-from config import S3_ACCESS, S3_SECRET, S3_BUCKET, S3_LOCATION
+from config import S3_ACCESS, S3_SECRET, S3_BUCKET, S3_LOCATION, S3_REGION
 
 s3 = boto3.client(
   "s3",
@@ -18,9 +18,10 @@ def upload_file_to_s3(file, bucket_name, acl="public-read"):
         "ContentType": file.content_type
       }
     )
-
   except Exception as e:
     print("Something Happened: ", e)
     return e
-
   return file.filename
+
+def s3_url(filename):
+  return f"https://{S3_REGION}.amazonaws.com/{S3_BUCKET}/{filename}"
