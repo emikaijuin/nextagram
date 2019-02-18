@@ -12,10 +12,11 @@ class Image(BaseModel):
   def upload(self, request):
     self.errors = []
     self.validate_file(request)
+  
 
     if len(self.errors) == 0: # validate file attachment before uploading to S3
-      self.url = secure_filename(self.url)
       response = upload_file_to_s3(request.files['image_file'], S3_BUCKET)
+      self.validate_upload(response)
       if len(self.errors) == 0: # validate Amazon upload was successful
         return response
     return 0
