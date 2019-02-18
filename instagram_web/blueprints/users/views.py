@@ -37,7 +37,12 @@ def create():
 
 @users_blueprint.route('/<username>', methods=["GET"])
 def show(username):
-    return f"{username}'s profile"
+  user = User.get(username= username)
+  return render_template(
+    "show.html",
+    username = user.username,
+    profile_image_url = user.profile_image_url
+  )
 
 
 @users_blueprint.route('/', methods=["GET"])
