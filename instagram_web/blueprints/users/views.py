@@ -20,6 +20,7 @@ def create():
     username = request.form['username'],
     password_digest = generate_password_hash(request.form['password'])
   )
+  user.upload_file(request)
   if user.save():
     session['user_id'] = user.id
     return redirect(url_for('users.show', username=user.username))
@@ -61,6 +62,7 @@ def update(id):
     user = User.get_by_id(str(current_user))
     if request.form['username']: user.username = request.form['username']
     if request.form['password']: user.password = request.form['password']
+    if request.form['user_file']: user.upload_file(request)
     
     if user.save():
         return redirect(url_for(".show", username = user.username))
