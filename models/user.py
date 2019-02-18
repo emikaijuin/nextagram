@@ -51,7 +51,7 @@ class User(BaseModel):
     @hybrid_property
     def profile_image_url(self):
       if self.avatar:
-        return S3_LOCATION + self.avatar
+        return s3_url(self.avatar)
       else:
         return ""
         
