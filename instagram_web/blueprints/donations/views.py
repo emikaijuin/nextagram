@@ -25,18 +25,22 @@ def new(image_id):
 def checkout(image_id):
   nonce_from_the_client = request.form['payment_method_nonce']
   amount = request.form['amount']
+  message = request.form['message']
+
   result = Donation.submit_to_braintree(nonce_from_the_client, amount)
+
   if result.is_success:
     recipient = User.get(id = Image.get(id=image_id).user_id)
     donation = Donation(
       amount = amount,
       donor = current_user.id,
       image = image_id,
-      message = request.form['message'],
+      message = message,
       recipient = recipient.id
     )
     donation.save()
     flash(f"You donated {amount} dollars to {current_user.username}!")
+    donation.notify_recipient(current_user.username, amount, message)
     return redirect(url_for("users.show", username = recipient.username))
   else:
     flash("There were issues with your payment, please fix and try again.")
