@@ -16,9 +16,10 @@ gateway = braintree.BraintreeGateway(
 
 class Donation(BaseModel):
   amount = pw.DecimalField()
-  user = pw.ForeignKeyField(User, backref="donations")
+  donor = pw.ForeignKeyField(User, backref="received_donations")
   image = pw.ForeignKeyField(Image, backref="donations")
   message = pw.CharField()
+  recipient = pw.ForeignKeyField(User, backref="submitted_donations")
 
   @classmethod
   def submit_to_braintree(cls, nonce_from_the_client, amount):
