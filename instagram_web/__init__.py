@@ -3,6 +3,7 @@ from flask import render_template, flash
 from instagram_web.blueprints.users.views import users_blueprint
 from instagram_web.blueprints.sessions.views import sessions_blueprint
 from instagram_web.blueprints.images.views import images_blueprint
+from instagram_web.blueprints.payments.views import payments_blueprint
 from flask_assets import Environment, Bundle
 from .util.assets import bundles
 
