@@ -13,11 +13,17 @@
   </div>
   <div class="container">
     {% for image in user_images %}
-      <img 
+      <div class="image-container">
+        <img 
         src="{{image.remote_url}}" 
         alt="img"
-        class="w-25">
-    {% endfor %}
+        class="w-50">
+      </div>
+        <a href="/images/{{image.id}}/donations/new">
+        <button>Donate</button>
+      </a>
+      {% endfor %}
   </div>
 </div>
 {% endblock %}
+
