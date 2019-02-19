@@ -30,9 +30,15 @@ class TestingConfig(Config):
     DEBUG = True
     ASSETS_DEBUG = True
 
-# Declare Amazon Accesses
+# Declare Amazon Keys
 S3_ACCESS = os.environ.get("S3_ACCESS_KEY")
 S3_SECRET = os.environ.get("S3_SECRET_KEY")
 S3_BUCKET = os.environ.get("S3_BUCKET_NAME")
 S3_LOCATION = os.environ.get("S3_LOCATION")
 S3_REGION = os.environ.get("S3_REGION")
+
+# Declare Braintree Keys
+BRAINTREE_MERCHANT_ID = os.environ.get("BRAINTREE_MERCHANT_ID")
+BRAINTREE_PUBLIC_KEY = os.environ.get("BRAINTREE_PUBLIC_KEY")
+BRAINTREE_PRIVATE_KEY = os.environ.get("BRAINTREE_PRIVATE_KEY")
+
