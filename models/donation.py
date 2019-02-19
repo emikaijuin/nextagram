@@ -19,3 +19,16 @@ class Donation(BaseModel):
   user = pw.ForeignKeyField(User, backref="donations")
   image = pw.ForeignKeyField(Image, backref="donations")
   message = pw.CharField()
+
+  @classmethod
+  def submit_to_braintree(cls, nonce_from_the_client, amount):
+    nonce_from_the_client = nonce_from_the_client
+    result = gateway.transaction.sale({
+      "amount":amount,
+      "payment_method_nonce": nonce_from_the_client,
+      "options": {
+        "submit_for_settlement": True
+      }
+    })
+
+    return result
