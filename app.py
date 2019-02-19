@@ -6,6 +6,7 @@ from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
 from models.user import User
 from models.image import Image
+from models.donation import Donation
 import logging
 
 logger = logging.getLogger('peewee')
