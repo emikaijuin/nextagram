@@ -1,12 +1,20 @@
 {% extends "_layout.html" %}
 {% block content %}
-<form id="payment-form" method="post" action="{{url_for('donations.checkout')}}">
+<form id="payment-form" method="post" action="/images/{{image_id}}/donations/checkout">
   <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+  <input type="hidden" name="image_id" value="{{image_id}}">
   <section>
     <label for="amount">
       <span class="input-label">Amount</span>
       <div class="input-wrapper amount-wrapper">
         <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+      </div>
+    </label>
+
+    <label for="message">
+      <span class="input-label">Message</span>
+      <div class="input-wrapper amount-wrapper">
+        <input id="message" name="message" placeholder="message">
       </div>
     </label>
 
@@ -16,7 +24,7 @@
   </section>
 
   <input type="hidden" id="nonce" name="payment_method_nonce" />
-  <button class="button" type="submit" id="submit-button"><span>Test Transaction</span></button>
+  <button class="button" type="submit" id="submit-button"><span>Submit</span></button>
 </form>
 
 
