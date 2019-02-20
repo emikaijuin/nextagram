@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="google-signin-client_id" content="{{config.GOOGLE_CLIENT_ID}}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='image/favicon.ico') }}">
 
     {% assets "home_css" %}
@@ -32,4 +32,6 @@
     {% block content %}
     {% endblock %}
   </body>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
 </html>
