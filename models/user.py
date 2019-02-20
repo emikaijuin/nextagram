@@ -19,6 +19,7 @@ class User(BaseModel):
         if duplicate_username and not duplicate_username.id == self.id:
             self.errors.append("Username is already taken, please try creating another.")
 
+    # Flask Login
     def is_authenticated(self):
         return True
 
@@ -30,6 +31,8 @@ class User(BaseModel):
     
     def get_id(self):
         return str(self.id)
+
+    # S3 Image Upload 
 
     def upload_file(self, request):
       if "user_file" not in request.files:
