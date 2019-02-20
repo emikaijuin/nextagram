@@ -1,3 +1,5 @@
+asn1crypto==0.24.0
+Authlib==0.10
 autopep8==1.4.3
 bcrypt==3.1.6
 boto3==1.9.96
@@ -8,6 +10,7 @@ cffi==1.12.0
 chardet==3.0.4
 Click==7.0
 colorama==0.4.1
+cryptography==2.5
 cssmin==0.2.0
 docutils==0.14
 Flask==1.0.2
