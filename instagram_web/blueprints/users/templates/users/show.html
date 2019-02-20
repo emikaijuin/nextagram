@@ -10,19 +10,40 @@
       class="rounded-circle"
       style="width:80px; height:80px"
     >
+    {% if current_user.is_following(username) %}
+      <form action="{{ url_for('users.unfollow', username = username)}}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <input type="submit" value="Unfollow">
+      </form>
+    {% else %}
+      <form action="{{ url_for('users.follow', username = username)}}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <input type="submit" value="Follow" disabled="{{current_user.has_pending_request_to(username)}}">
+      </form>
+    {% endif %}
   </div>
   <div class="container">
-    {% for image in user_images %}
-      <div class="image-container">
-        <img 
-        src="{{image.remote_url}}" 
-        alt="img"
-        class="w-50">
+    {% if current_user.can_view(username) %}
+      <div class="protected">
+        {% for image in user_images %}
+          <div class="image-container">
+            <img 
+            src="{{image.remote_url}}" 
+            alt="img"
+            class="w-50">
+          </div>
+            <a href="/images/{{image.id}}/donations/new">
+            <button>Donate</button>
+          </a>
+        {% endfor %}
       </div>
-        <a href="/images/{{image.id}}/donations/new">
-        <button>Donate</button>
-      </a>
-      {% endfor %}
+    {% else %}
+      {% if current_user.has_pending_request_to(username) %}
+        <h3>Follow request sent.</h3>
+      {% else %}
+        <h3>User has private profile. Send a follow request to view their profile. </h3>
+      {% endif %}
+    {% endif %}
   </div>
 </div>
 {% endblock %}
