@@ -82,3 +82,26 @@ def update(id):
             username = user.username,
             email = user.email
         )
+
+@users_blueprint.route('/<username>/follow', methods=['POST'])
+def follow(username):
+    current_user.follow(username)
+    return redirect(url_for("users.show", username=username))
+
+@users_blueprint.route('/<username>/unfollow', methods=["POST"])
+def unfollow(username):
+    current_user.unfollow(username)
+    return redirect(url_for("users.show", username=username))
+
+@users_blueprint.route('/requests', methods=["GET"])
+def requests():
+    requests = Relationship.unapproved_requests(current_user)
+    return render_template(
+        "/requests.html",
+        requests = requests
+    )
+
+@users_blueprint.route('/approve_request/<request_id>', methods=["POST"])
+def approve_request(request_id):
+    Relationship.get(id = request_id).approve()
+    return redirect(url_for('users.requests'))
