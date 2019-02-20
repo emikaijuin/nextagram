@@ -8,6 +8,7 @@ class User(BaseModel):
     email = pw.CharField(unique=True, index=True)
     password_digest = pw.CharField(unique=False)
     avatar = pw.CharField(null=True)
+    private = pw.BooleanField(default=False)
 
     def validate(self):
         duplicate_email = User.get_or_none(User.email == self.email)
