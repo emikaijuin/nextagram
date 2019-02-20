@@ -4,7 +4,7 @@ from flask import Flask
 from models.base_model import db
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
-from models.user import User
+from models.user import User, Relationship
 from models.image import Image
 from models.donation import Donation
 import logging
