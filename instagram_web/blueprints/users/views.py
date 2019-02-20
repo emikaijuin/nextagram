@@ -40,7 +40,7 @@ def show(username):
   user = User.get(username= username)
   return render_template(
     "show.html",
-    username = user.username,
+    username = username,
     profile_image_url = user.profile_image_url,
     user_images = user.images
   )
