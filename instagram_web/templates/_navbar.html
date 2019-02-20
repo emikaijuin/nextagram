@@ -24,6 +24,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('sessions.new')}}">Sign In</a>
           </li>
+          <li class="nav-item">
+              <a 
+                class="nav-link" 
+                href="{{url_for('sessions.new_oauth', provider='google')}}">
+                Sign in with google
+              </a>
+          </li>
           <li class="nav-item active">
             <a class="nav-link" href="{{url_for('users.new')}}">Sign Up <span class="sr-only">(current)</span></a>
           </li>
@@ -33,6 +40,5 @@
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
   </nav>
