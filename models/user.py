@@ -10,6 +10,14 @@ class User(BaseModel):
     avatar = pw.CharField(null=True)
     private = pw.BooleanField(default=False)
 
+    def to_json(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "avatar": self.profile_image_url,
+            "private": self.private 
+        }
+
     def validate(self):
         duplicate_email = User.get_or_none(User.email == self.email)
         duplicate_username = User.get_or_none(User.username == self.username)
@@ -113,7 +121,7 @@ class User(BaseModel):
             return True
         if not user.private:
             return True
-        if self.is_following(username):
+        if self.is_authenticated and self.is_following(username):
             return True
         return False
 
