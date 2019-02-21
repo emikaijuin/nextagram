@@ -10,20 +10,28 @@
       class="rounded-circle"
       style="width:80px; height:80px"
     >
-    {% if current_user.is_following(username) %}
-      <form action="{{ url_for('users.unfollow', username = username)}}" method="POST">
-        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-        <input type="submit" value="Unfollow">
-      </form>
-    {% else %}
-      <form action="{{ url_for('users.follow', username = username)}}" method="POST">
-        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-        <input type="submit" value="Follow" disabled="{{current_user.has_pending_request_to(username)}}">
-      </form>
+    {% if current_user.is_authenticated %}
+      {% if current_user.is_following(username) %}
+        <form action="{{ url_for('users.unfollow', username = username)}}" method="POST">
+          <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+          <input type="submit" value="Unfollow">
+        </form>
+      {% else %}
+        <form action="{{ url_for('users.follow', username = username)}}" method="POST">
+          <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+          <input 
+            type="submit" 
+            value="Follow"
+            {% if current_user.has_pending_request_to(username) %}
+              disabled = "true"
+            {% endif %}
+          > 
+        </form>
+      {% endif %}
     {% endif %}
   </div>
   <div class="container">
-    {% if current_user.can_view(username) %}
+    {% if current_user.is_authenticated and current_user.can_view(username) %}
       <div class="protected">
         {% for image in user_images %}
           <div class="image-container">
@@ -38,7 +46,7 @@
         {% endfor %}
       </div>
     {% else %}
-      {% if current_user.has_pending_request_to(username) %}
+      {% if current_user.is_authenticated and current_user.has_pending_request_to(username) %}
         <h3>Follow request sent.</h3>
       {% else %}
         <h3>User has private profile. Send a follow request to view their profile. </h3>
