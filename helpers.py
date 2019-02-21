@@ -25,3 +25,6 @@ def upload_file_to_s3(file, bucket_name, acl="public-read"):
 
 def s3_url(filename):
   return f"https://{S3_REGION}.amazonaws.com/{S3_BUCKET}/{filename}"
+
+def map_to_s3(images):
+  return list(map(lambda img: img.remote_url, images))
