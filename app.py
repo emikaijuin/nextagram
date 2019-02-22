@@ -9,16 +9,20 @@ from models.image import Image
 from models.donation import Donation
 import logging
 
+# Configure app logging
 logger = logging.getLogger('peewee')
 logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler())
 
+# Initialize and configure app
 web_dir = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'instagram_web')
 
 app = Flask('NEXTAGRAM', root_path=web_dir)
 
+# Require CSRF tokens on post requests
 csrf = CSRFProtect(app)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 
